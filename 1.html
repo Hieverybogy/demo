@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body,
+        html,
+        #allmap1 {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <title>谷歌地图</title>
+</head>
+
+<body>
+<div id="allmap1"></div>
+
+
+</body>
+
+</html>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+<script>
+    var o2 = document.getElementById('allmap1');
+
+    var overlay;
+
+
+    function loadGoogleScript(){
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = 'http://ditu.google.cn/maps/api/js?key=AIzaSyDJW4jsPlNKgv6jFm3B5Edp5ywgdqLWdmc&callback=getGoogleMap';
+        document.body.appendChild(script);
+    }
+
+    function getGoogleMap(){
+        USGSOverlay.prototype = new google.maps.OverlayView();
+        var myLatLng = {lat: 22.53633602, lng: 114};   //lat:经度  lng：纬度  从参考文档里查找经纬度的网站查到然后替换一下就行
+        var map = new google.maps.Map(document.getElementById('allmap1'), {
+            center: myLatLng,
+            zoom: 10,     //zoom具体数值代表多大范围可从以下参考文档里的zoom设置网址查找即可
+        });
+
+        var infoWindow = new google.maps.InfoWindow;
+        // var marker = new google.maps.Marker({
+        //     map: map,
+        //     position: myLatLng,
+        //     title: 'Hello World!'
+        // });
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var locations = [
+            {lat: 22.551731, lng: 114.055593},
+            {lat: 22.706641, lng: 114.362484},
+            {lat: 22.755303, lng: 113.94078},
+            {lat: 22.781555, lng: 113.879992},
+            {lat: 22.704185, lng: 114.046777},
+            {lat: 22.601927, lng: 114.491469}
+        ];
+
+        var markers = locations.map(function(location, i) {
+            return new google.maps.Marker({
+                position: location,
+                map: map,
+                // icon: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            });
+        });
+        var bounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(22.551731, 114.055593),
+            new google.maps.LatLng(22.706641, 114.362484));
+
+        // The photograph is courtesy of the U.S. Geological Survey.
+        var srcImage = 'https://developers.google.com/maps/documentation/javascript/';
+        srcImage += 'examples/full/images/talkeetna.png';
+
+        overlay = new USGSOverlay(bounds, srcImage, map);
+
+        // Add a marker clusterer to manage the markers.
+        // var markerCluster = new MarkerClusterer(map, markers,
+        //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'},);
+    }
+    /** @constructor */
+    function USGSOverlay(bounds, image, map) {
+
+        // Now initialize all properties.
+        this.bounds_ = bounds;
+        this.image_ = image;
+        this.map_ = map;
+
+        // Define a property to hold the image's div. We'll
+        // actually create this div upon receipt of the onAdd()
+        // method so we'll leave it null for now.
+        this.div_ = null;
+
+        // Explicitly call setMap on this overlay
+        this.setMap(map);
+    }
+
+
+    window.onload = function(){
+        loadGoogleScript()
+    };
+</script>
