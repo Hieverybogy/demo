@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <style type="text/css">
         body,
         html,
@@ -34,16 +34,17 @@
 
     //console.log(1111) console.log(2222)
     //1111
+    //2222
     //3333
 
-    function loadGoogleScript(){
+    function loadGoogleScript() {
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.src = 'http://ditu.google.cn/maps/api/js?key=AIzaSyDJW4jsPlNKgv6jFm3B5Edp5ywgdqLWdmc&callback=getGoogleMap';
         document.body.appendChild(script);
     }
 
-    function getGoogleMap(){
+    function getGoogleMap() {
         USGSOverlay.prototype = new google.maps.OverlayView();
         var myLatLng = {lat: 22.53633602, lng: 114};   //lat:经度  lng：纬度  从参考文档里查找经纬度的网站查到然后替换一下就行
         var map = new google.maps.Map(document.getElementById('allmap1'), {
@@ -67,7 +68,7 @@
             {lat: 22.601927, lng: 114.491469}
         ];
 
-        var markers = locations.map(function(location, i) {
+        var markers = locations.map(function (location, i) {
             return new google.maps.Marker({
                 position: location,
                 map: map,
@@ -88,6 +89,7 @@
         // var markerCluster = new MarkerClusterer(map, markers,
         //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'},);
     }
+
     /** @constructor */
     function USGSOverlay(bounds, image, map) {
 
@@ -106,7 +108,7 @@
     }
 
 
-    window.onload = function(){
+    window.onload = function () {
         loadGoogleScript()
     };
 </script>
